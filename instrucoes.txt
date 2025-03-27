@@ -1,0 +1,71 @@
+# Instruções para Testes da API
+
+## **1. Pré-requisitos**
+Antes de executar os testes, certifique-se de que:
+- O servidor Flask está rodando na porta `5000`.
+- O `cURL` está instalado no seu sistema.
+- Caso esteja usando Linux ou macOS, tenha dado permissão de execução ao script de testes.
+  ```sh
+  chmod +x testes_curl.sh
+  ```
+
+## **2. Como Executar os Testes**
+### **2.1 Testando com o script (Linux/macOS/Windows Git Bash)**
+Execute o seguinte comando:
+```sh
+./testes_curl.sh
+```
+Se estiver no Windows usando Git Bash, o comando também funcionará.
+
+### **2.2 Executando os testes manualmente com cURL**
+Caso queira testar individualmente, use os comandos abaixo:
+
+#### **2.2.1 Atualizar um produto (PUT)**
+```sh
+curl -X PUT http://localhost:5000/produtos/5 \
+    -H "Content-Type: application/json" \
+    -d '{
+        "nome": "Monitor 27\" 4K",
+        "fornecedor": "UltraScreen",
+        "endereco_fornecedor": "Rua das Telas, 789",
+        "quantidade": 45,
+        "endereco": "Depósito C",
+        "preco_unitario": 1850.00
+    }'
+```
+
+#### **2.2.2 Criar um novo produto (POST)**
+```sh
+curl -X POST http://localhost:5000/produtos \
+    -H "Content-Type: application/json" \
+    -d '{
+        "nome": "Teclado Mecânico",
+        "fornecedor": "KeyTech",
+        "endereco_fornecedor": "Avenida das Teclas, 202",
+        "quantidade": 50,
+        "endereco": "Depósito B",
+        "preco_unitario": 450.00
+    }'
+```
+
+#### **2.2.3 Listar produtos (GET)**
+```sh
+curl -X GET http://localhost:5000/produtos
+```
+
+#### **2.2.4 Remover um produto (DELETE)**
+```sh
+curl -X DELETE http://localhost:5000/produtos/3
+```
+
+## **3. Verificando os Resultados**
+- **Sucesso (200, 201)**: Retorno esperado para operações bem-sucedidas.
+- **Erro 404**: Se um produto não existir.
+- **Erro 500**: Caso ocorra uma falha interna no servidor.
+
+Após os testes, verifique o banco de dados para confirmar as alterações.
+
+---
+
+Qualquer problema, verifique se o servidor Flask está rodando corretamente ou revise a configuração do banco de dados.
+
